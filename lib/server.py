@@ -27,9 +27,11 @@ class Server(threading.Thread):
 
     def _setup_server(self):
         self.http = ThreadedHTTPServer(
-            (self.host, self.port), self.handler_class)
+            ('0.0.0.0', self.port), self.handler_class)
         self.http.timeout = None
         self.http.daemon_threads = True
+        self.http.host = self.host
+        self.http.port = self.port
         self.http.shell = self.shell
         self.http.session = self.session
         self.http.rc4_key = self.rc4_key
